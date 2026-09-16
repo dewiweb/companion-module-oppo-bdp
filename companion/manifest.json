@@ -7,8 +7,8 @@
 	"description": "Control OPPO BDP-83/93/95/103/105 Blu-ray players over the network",
 	"version": "1.0.0",
 	"license": "MIT",
-	"repository": "git+https://github.com/bitfocus/companion-module-oppo-bdp.git",
-	"bugs": "https://github.com/bitfocus/companion-module-oppo-bdp/issues",
+	"repository": "git+https://github.com/dewiweb/companion-module-oppo-bdp.git",
+	"bugs": "https://github.com/dewiweb/companion-module-oppo-bdp/issues",
 	"maintainers": [
 		{
 			"name": "dewiweb",

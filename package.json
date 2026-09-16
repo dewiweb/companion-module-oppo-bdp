@@ -11,7 +11,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/bitfocus/companion-module-oppo-bdp.git"
+		"url": "git+https://github.com/dewiweb/companion-module-oppo-bdp.git"
 	},
 	"engines": {
 		"node": "^22.20"
