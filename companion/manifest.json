@@ -1,0 +1,28 @@
+{
+	"$schema": "../node_modules/@companion-module/base/assets/manifest.schema.json",
+	"type": "connection",
+	"id": "oppo-bdp",
+	"name": "oppo-bdp",
+	"shortname": "OPPO BDP",
+	"description": "Control OPPO BDP-83/93/95/103/105 Blu-ray players over the network",
+	"version": "1.0.0",
+	"license": "MIT",
+	"repository": "git+https://github.com/bitfocus/companion-module-oppo-bdp.git",
+	"bugs": "https://github.com/bitfocus/companion-module-oppo-bdp/issues",
+	"maintainers": [
+		{
+			"name": "dewiweb",
+			"email": "dewiweb@gmail.com"
+		}
+	],
+	"runtime": {
+		"type": "node22",
+		"api": "nodejs-ipc",
+		"apiVersion": "0.0.0",
+		"entrypoint": "../src/main.js"
+	},
+	"legacyIds": [],
+	"manufacturer": "OPPO Digital",
+	"products": ["BDP-83", "BDP-93", "BDP-95", "BDP-103", "BDP-105"],
+	"keywords": ["Blu-ray", "Player", "Media"]
+}

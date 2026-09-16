@@ -1,0 +1,27 @@
+{
+	"name": "companion-module-oppo-bdp",
+	"version": "1.0.0",
+	"description": "Bitfocus Companion module for OPPO BDP-83/93/95/103/105 Blu-ray players (IP control)",
+	"main": "src/main.js",
+	"type": "module",
+	"scripts": {
+		"format": "prettier -w .",
+		"package": "companion-module-build"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bitfocus/companion-module-oppo-bdp.git"
+	},
+	"engines": {
+		"node": "^22.20"
+	},
+	"dependencies": {
+		"@companion-module/base": "~2.1.3"
+	},
+	"devDependencies": {
+		"@companion-module/tools": "^3.1.0",
+		"prettier": "^3.8.3"
+	},
+	"prettier": "@companion-module/tools/.prettierrc.json"
+}

@@ -1,0 +1,28 @@
+export default function (self) {
+	self.setVariableDefinitions({
+		power: { name: 'Power state (on/standby)' },
+		playback_status: { name: 'Playback status' },
+		disc_type: { name: 'Disc type' },
+		volume: { name: 'Volume level (0-100)' },
+		muted: { name: 'Muted' },
+		input_source: { name: 'Input source' },
+		track: { name: 'Current track/title' },
+		chapter: { name: 'Current chapter' },
+		time_track_elapsed: { name: 'Track/title elapsed time' },
+		time_track_remaining: { name: 'Track/title remaining time' },
+		time_chapter_elapsed: { name: 'Chapter elapsed time' },
+		time_chapter_remaining: { name: 'Chapter remaining time' },
+		time_total_elapsed: { name: 'Total elapsed time' },
+		time_total_remaining: { name: 'Total remaining time' },
+		time_code: { name: 'Current playback time code (verbose)' },
+		time_code_type: { name: 'Time code type (E/R/T/X/C/K)' },
+		audio_type: { name: 'Audio track type' },
+		subtitle_type: { name: 'Subtitle track' },
+		subtitle_shift: { name: 'Subtitle shift' },
+		osd_position: { name: 'OSD position' },
+		repeat_mode: { name: 'Repeat mode' },
+		zoom_mode: { name: 'Zoom mode' },
+		hdmi_resolution: { name: 'HDMI output resolution' },
+		firmware_version: { name: 'Firmware version' },
+	})
+}
