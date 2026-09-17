@@ -53,6 +53,7 @@ The player must have network control enabled. To control power-on from standby, 
 - The module tries to enable unsolicited status updates (verbose mode 3) on power-on. Some firmwares
   ignore `SVM` over the network interface, in which case state is kept fresh by polling at the
   configured interval.
+- Time-code variables (elapsed/remaining) are polled once per second while a disc is playing.
 - While the player is in standby only the power query is polled.
 - Commands are rate-limited and serialised; the player only processes one command at a time.
 - Note: the HTTP JSON API (`sendremotekey` on port 436) used by the OPPO MediaControl app is **not**

@@ -347,8 +347,28 @@ const QUERIES = {
 const POLL_ON_QUERIES = ['QPW', 'QPL', 'QVL', 'QDT', 'QIS', 'QTK', 'QCH']
 // Queries polled while in standby (most commands get no response when off).
 const POLL_OFF_QUERIES = ['QPW']
+// Time-code queries polled at a faster cadence while transport is active.
+const TIME_QUERIES = ['QTE', 'QTR', 'QCE', 'QCR', 'QEL', 'QRE']
 // Queries run once after connect / power-on.
-const INIT_QUERIES = ['QPW', 'QVR', 'QVL', 'QHD', 'QPL', 'QDT', 'QIS', 'QTK', 'QCH', 'QRP', 'QZM', 'QAT', 'QST']
+const INIT_QUERIES = [
+	'QPW',
+	'QVR',
+	'QVL',
+	'QHD',
+	'QPL',
+	'QDT',
+	'QIS',
+	'QTK',
+	'QCH',
+	'QRP',
+	'QZM',
+	'QAT',
+	'QST',
+	...TIME_QUERIES,
+]
+// Playback states in which time codes advance — worth polling every second.
+const ACTIVE_PLAYBACK_STATES = ['PLAY', 'PAUSE', 'STEP', 'FREV', 'FFWD', 'SFWD', 'SREV']
+const FAST_POLL_MS = 1000
 
 const INPUT_SOURCES = {
 	0: 'BD-PLAYER',
@@ -458,6 +478,9 @@ export {
 	POLL_ON_QUERIES,
 	POLL_OFF_QUERIES,
 	INIT_QUERIES,
+	TIME_QUERIES,
+	ACTIVE_PLAYBACK_STATES,
+	FAST_POLL_MS,
 	INPUT_SOURCES,
 	DISC_TYPES,
 	PLAYBACK_STATES,

@@ -143,7 +143,7 @@ export default function (self) {
 		type: 'simple',
 		name: 'Playback status display',
 		style: {
-			text: '$(oppo-bdp:playback_status)\\n$(oppo-bdp:time_code)',
+			text: '$(oppo-bdp:playback_status)\n$(oppo-bdp:time_total_elapsed) / $(oppo-bdp:time_total_remaining)',
 			size: 'auto',
 			color: WHITE,
 			bgcolor: BLACK,

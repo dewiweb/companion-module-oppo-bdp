@@ -4,7 +4,17 @@ import UpdateActions from './actions.js'
 import UpdateFeedbacks from './feedbacks.js'
 import UpdateVariableDefinitions from './variables.js'
 import UpdatePresets from './presets.js'
-import { QUERIES, POLL_ON_QUERIES, POLL_OFF_QUERIES, INIT_QUERIES, UPL_STATES, UDT_DISC_TYPES } from './commands.js'
+import {
+	QUERIES,
+	POLL_ON_QUERIES,
+	POLL_OFF_QUERIES,
+	INIT_QUERIES,
+	TIME_QUERIES,
+	ACTIVE_PLAYBACK_STATES,
+	FAST_POLL_MS,
+	UPL_STATES,
+	UDT_DISC_TYPES,
+} from './commands.js'
 
 export { UpgradeScripts }
 
@@ -24,6 +34,8 @@ class ModuleInstance extends InstanceBase {
 		this.pendingItem = undefined
 		this.pendingTimer = undefined
 		this.pollTimer = undefined
+		this.fastPollTimer = undefined
+		this.fastPollBusy = false
 		this.state = {}
 	}
 
@@ -39,6 +51,7 @@ class ModuleInstance extends InstanceBase {
 
 	async destroy() {
 		this.stopPolling()
+		this.stopFastPolling()
 		if (this.pendingTimer) clearTimeout(this.pendingTimer)
 		if (this.socket) {
 			this.socket.destroy()
@@ -127,6 +140,7 @@ class ModuleInstance extends InstanceBase {
 
 	initConnection() {
 		this.stopPolling()
+		this.stopFastPolling()
 		this.flushQueue()
 		this.receiveBuffer = ''
 		this.sending = false
@@ -361,6 +375,7 @@ class ModuleInstance extends InstanceBase {
 		this.state[key] = value
 		this.setVariableValues({ [key]: value })
 		this.checkFeedbacks('power_state', 'playback_state', 'disc_type', 'input_source', 'muted', 'repeat_mode')
+		if (key === 'playback_status' || key === 'power') this.updateFastPolling()
 	}
 
 	startPolling() {
@@ -381,6 +396,39 @@ class ModuleInstance extends InstanceBase {
 		const queries = this.state.power === 'on' ? POLL_ON_QUERIES : POLL_OFF_QUERIES
 		for (const q of queries) {
 			await this.query(q)
+		}
+	}
+
+	// Fast (1s) poll of the time-code queries, only while transport is active.
+	// Needed because this firmware family ignores SVM over IP, so the
+	// unsolicited @UTC updates never arrive.
+	updateFastPolling() {
+		const active =
+			this.state.power === 'on' && ACTIVE_PLAYBACK_STATES.includes(this.state.playback_status)
+		if (active && !this.fastPollTimer) {
+			this.fastPollTimer = setInterval(() => this.fastPoll(), FAST_POLL_MS)
+		} else if (!active && this.fastPollTimer) {
+			this.stopFastPolling()
+		}
+	}
+
+	stopFastPolling() {
+		if (this.fastPollTimer) {
+			clearInterval(this.fastPollTimer)
+			this.fastPollTimer = undefined
+		}
+	}
+
+	async fastPoll() {
+		if (this.fastPollBusy) return // previous cycle still running
+		if (!this.socket || !this.socket.isConnected) return
+		this.fastPollBusy = true
+		try {
+			for (const q of TIME_QUERIES) {
+				await this.query(q)
+			}
+		} finally {
+			this.fastPollBusy = false
 		}
 	}
 
