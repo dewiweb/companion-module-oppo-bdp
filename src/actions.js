@@ -31,10 +31,51 @@ export default function (self) {
 		},
 	}
 
+	// Input selection via the on-screen list: direct `SIS` is ignored over IP
+	// on some firmwares (e.g. BDP-105D); SRC opens the list then NU1-NU8 picks.
+	actions.input_select = {
+		name: 'Input: Select via on-screen list',
+		description:
+			'Opens the input list (SRC) then selects an entry by number. Use this when direct SIS gets no response. List order may vary by unit.',
+		options: [
+			{
+				id: 'position',
+				type: 'dropdown',
+				label: 'Input list position',
+				default: 'NU1',
+				choices: [
+					{ id: 'NU1', label: '1 - Blu-ray player' },
+					{ id: 'NU2', label: '2 - HDMI/MHL In (front)' },
+					{ id: 'NU3', label: '3 - HDMI In (back)' },
+					{ id: 'NU4', label: '4 - ARC HDMI Out 1' },
+					{ id: 'NU5', label: '5 - ARC HDMI Out 2' },
+					{ id: 'NU6', label: '6 - Optical In' },
+					{ id: 'NU7', label: '7 - Coaxial In' },
+					{ id: 'NU8', label: '8 - USB Audio In' },
+				],
+			},
+			{
+				id: 'delay',
+				type: 'number',
+				label: 'Menu open delay (ms)',
+				default: 1000,
+				min: 200,
+				max: 5000,
+			},
+		],
+		callback: async (event) => {
+			await self.sendCommand('SRC')
+			await new Promise((r) => setTimeout(r, event.options.delay))
+			await self.sendCommand(event.options.position)
+		},
+	}
+
 	// Parameterized commands
 	for (const [id, def] of Object.entries(PARAMETERIZED_COMMANDS)) {
 		actions[id] = {
 			name: def.name,
+			description:
+				'Set-commands are ignored over the IP interface on some firmwares (e.g. BDP-105D) — they will silently time out there.',
 			options: def.options,
 			callback: async (event) => {
 				const args = []

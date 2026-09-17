@@ -1,6 +1,6 @@
 {
 	"name": "companion-module-oppo-bdp",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Bitfocus Companion module for OPPO BDP-83/93/95/103/105 Blu-ray players (IP control)",
 	"main": "src/main.js",
 	"type": "module",

@@ -26,7 +26,8 @@ The player must have network control enabled. To control power-on from standby, 
 - Menus: home, top menu, pop-up menu, setup, OSD, option menu, 3D menu, picture adjustment
 - Numeric keys 0-9, clear
 - Volume: up, down, set level, mute toggle
-- Input source: INPUT button and direct selection (BD Player, HDMI front/back, ARC HDMI out 1/2, optical, coaxial, USB audio — audio inputs are BDP-105 only)
+- Input source: INPUT button and selection via the on-screen list (BD Player, HDMI front/back, ARC
+  HDMI out 1/2, optical, coaxial, USB audio)
 - Audio language, subtitle language/subtitle shift, camera angle, SAP
 - Repeat: repeat button, A-B repeat, direct repeat-mode set
 - Zoom button and direct zoom-ratio set
@@ -53,6 +54,10 @@ The player must have network control enabled. To control power-on from standby, 
 - The module tries to enable unsolicited status updates (verbose mode 3) on power-on. Some firmwares
   ignore `SVM` over the network interface, in which case state is kept fresh by polling at the
   configured interval.
+- Input source: INPUT button and selection via the on-screen list (SRC + number). The direct `SIS`
+  command and other parameterized set-commands (`SVL`, `SRP`, `SHD`, ...) are **ignored over IP on
+  some firmwares** (verified on BDP-105D 10XEU-83-1226) — they remain available but will time out
+  silently there.
 - Time-code variables (elapsed/remaining) are polled once per second while a disc is playing.
 - While the player is in standby only the power query is polled.
 - Commands are rate-limited and serialised; the player only processes one command at a time.

@@ -111,32 +111,42 @@ export default function (self) {
 	add(
 		'inputs',
 		'input_bd',
-		preset('BD player', 'set_input_source', { source: '0' }, [inputFeedback('BD-PLAYER')], {}, 'Inputs'),
+		preset('BD player', 'input_select', { position: 'NU1' }, [inputFeedback('BD-PLAYER')], {}, 'Inputs'),
 	)
 	add(
 		'inputs',
 		'input_hdmi_front',
-		preset('HDMI front', 'set_input_source', { source: '1' }, [inputFeedback('HDMI-FRONT')], {}, 'Inputs'),
+		preset('HDMI front', 'input_select', { position: 'NU2' }, [inputFeedback('HDMI-FRONT')], {}, 'Inputs'),
 	)
 	add(
 		'inputs',
 		'input_hdmi_back',
-		preset('HDMI back', 'set_input_source', { source: '2' }, [inputFeedback('HDMI-BACK')], {}, 'Inputs'),
+		preset('HDMI back', 'input_select', { position: 'NU3' }, [inputFeedback('HDMI-BACK')], {}, 'Inputs'),
+	)
+	add(
+		'inputs',
+		'input_arc1',
+		preset('ARC HDMI out 1', 'input_select', { position: 'NU4' }, [inputFeedback('ARC-HDMI-OUT1')], {}, 'Inputs'),
+	)
+	add(
+		'inputs',
+		'input_arc2',
+		preset('ARC HDMI out 2', 'input_select', { position: 'NU5' }, [inputFeedback('ARC-HDMI-OUT2')], {}, 'Inputs'),
 	)
 	add(
 		'inputs',
 		'input_optical',
-		preset('Optical', 'set_input_source', { source: '5' }, [inputFeedback('OPTICAL')], {}, 'Inputs'),
+		preset('Optical', 'input_select', { position: 'NU6' }, [inputFeedback('OPTICAL')], {}, 'Inputs'),
 	)
 	add(
 		'inputs',
 		'input_coaxial',
-		preset('Coaxial', 'set_input_source', { source: '6' }, [inputFeedback('COAXIAL')], {}, 'Inputs'),
+		preset('Coaxial', 'input_select', { position: 'NU7' }, [inputFeedback('COAXIAL')], {}, 'Inputs'),
 	)
 	add(
 		'inputs',
 		'input_usb',
-		preset('USB audio', 'set_input_source', { source: '7' }, [inputFeedback('USB-AUDIO')], {}, 'Inputs'),
+		preset('USB audio', 'input_select', { position: 'NU8' }, [inputFeedback('USB-AUDIO')], {}, 'Inputs'),
 	)
 
 	presets.status = {
