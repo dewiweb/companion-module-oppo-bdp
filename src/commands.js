@@ -344,7 +344,7 @@ const QUERIES = {
 }
 
 // Queries polled on an interval while the player is powered on.
-const POLL_ON_QUERIES = ['QPW', 'QPL', 'QVL', 'QDT', 'QIS', 'QTK', 'QCH']
+const POLL_ON_QUERIES = ['QPW', 'QPL', 'QVL', 'QDT', 'QIS', 'QTK', 'QCH', 'QAT', 'QST', 'QRP', 'QZM']
 // Queries polled while in standby (most commands get no response when off).
 const POLL_OFF_QUERIES = ['QPW']
 // Time-code queries polled at a faster cadence while transport is active.
@@ -364,6 +364,8 @@ const INIT_QUERIES = [
 	'QZM',
 	'QAT',
 	'QST',
+	'QSH',
+	'QOP',
 	...TIME_QUERIES,
 ]
 // Playback states in which time codes advance — worth polling every second.

@@ -14,6 +14,7 @@ import {
 	FAST_POLL_MS,
 	UPL_STATES,
 	UDT_DISC_TYPES,
+	PLAYBACK_STATES,
 } from './commands.js'
 
 export { UpgradeScripts }
@@ -494,7 +495,17 @@ class ModuleInstance extends InstanceBase {
 		// Keep state fresh for commands that carry their result in the response.
 		if (!payload || !payload.startsWith('OK')) return
 		const value = payload.slice(2).trim()
+		// Transport commands acknowledge with the new playback state (or a speed
+		// like "1X" for FWD/REV, mapped to FFWD/FREV). PAU-resume may answer PLAY.
+		const TRANSPORT_STATUS = { PLA: 'PLAY', PAU: 'PAUSE', STP: 'STOP', FWD: 'FFWD', REV: 'FREV' }
+		if (code in TRANSPORT_STATUS) {
+			this.setState('playback_status', PLAYBACK_STATES.includes(value) ? value : TRANSPORT_STATUS[code])
+			return
+		}
 		switch (code) {
+			case 'EJT':
+				if (value === 'OPEN' || value === 'CLOSE') this.setState('playback_status', value)
+				break
 			case 'POW':
 			case 'PON':
 			case 'POF':
